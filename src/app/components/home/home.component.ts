@@ -8,6 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class HomeComponent {
   loginCard = true;
+  disableCheckbox = true;
 
   loginForm = this.formBuilder.group({
     email: ['', Validators.required],
@@ -20,7 +21,7 @@ export class HomeComponent {
     telefone: ['', Validators.required],
     email: ['', Validators.required],
     senha: ['', Validators.required],
-    perfil: ['', Validators.required]
+    perfil: ['']
   })
 
   constructor(private formBuilder: FormBuilder) {

@@ -53,6 +53,11 @@
             <input  type="password" pInputText placeholder="Senha" formControlName="senha">
           </div>
 
+          <div class="flex justify-content-center align-items-center mt-3 gap-1">
+            <p-checkbox name="group1" value="0" formControlName="perfil" inputId="0"></p-checkbox>
+            <label for="0">Administrador</label>
+          </div>
+
           <div class="card flex justify-content-center mt-3">
             <button type="submit" pButton pRipple label="Criar conta" [disabled]="!this.signupForm.valid"></button>
           </div>
