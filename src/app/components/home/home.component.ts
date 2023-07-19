@@ -33,6 +33,6 @@ export class HomeComponent {
   }
 
   onSubmitSignupForm(): void {
-    console.log('Dados do Formulário de Login: ', this.signupForm.value)
+    console.log('Dados do Formulário de Cadastro de usuário: ', this.signupForm.value)
   }
 }
