@@ -3,5 +3,11 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vmin;
+  height: 100vmin; //pega todo o tamanho da tela mas não extrapola
+}
+
+@media screen and (min-width: 1400px) {
+  .grid {
+    background-position: top;
+  }
 }
