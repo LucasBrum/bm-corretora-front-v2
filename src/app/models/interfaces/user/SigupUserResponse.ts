@@ -1,8 +1,8 @@
 export interface SignupUserResponse {
   id: number;
   nome: string;
-  cpf: number;
-  telefone: number;
+  cpf: string;
+  telefone: string;
   email: string;
   senha: string;
 }

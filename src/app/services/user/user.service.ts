@@ -13,14 +13,15 @@ import { environment } from 'src/environments/environment';
 export class UserService {
 
   private API_URL = environment.API_URL;
+  private API_LOGIN = environment.API_LOGIN;
 
   constructor(private http: HttpClient) { }
 
-  sigupUser(signupUserRequest: SignupUserRequest): Observable<SignupUserResponse> {
+  signupUser(signupUserRequest: SignupUserRequest): Observable<SignupUserResponse> {
     return this.http.post<SignupUserResponse> (`${this.API_URL}/usuarios`, signupUserRequest);
   }
 
   authUser(authRequest: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/login`, authRequest);
+    return this.http.post<AuthResponse>(`${this.API_LOGIN}/login`, authRequest);
   }
 }
