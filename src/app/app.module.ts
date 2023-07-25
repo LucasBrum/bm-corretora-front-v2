@@ -16,6 +16,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 import { HomeComponent } from './components/home/home.component';
 import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { CookieService } from 'ngx-cookie-service';
     CheckboxModule
 
   ],
-  providers: [CookieService],
+  providers: [CookieService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
