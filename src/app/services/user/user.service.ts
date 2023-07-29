@@ -22,7 +22,7 @@ export class UserService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   signupUser(signupUserRequest: SignupUserRequest): Observable<SignupUserResponse> {
-    return this.http.post<SignupUserResponse> (`${this.API_URL}/login`, signupUserRequest);
+    return this.http.post<SignupUserResponse> (`${this.API_URL}/usuarios`, signupUserRequest);
   }
 
   authUser(authRequest: AuthRequest) {

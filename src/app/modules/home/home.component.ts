@@ -73,6 +73,7 @@ export class HomeComponent {
 
   onSubmitSignupForm(): void {
     if (this.signupForm.value && this.signupForm.valid) {
+      console.log('signup >>>', this.signupForm.value)
       this.userService.signupUser(this.signupForm.value as SignupUserRequest)
         .subscribe({
           next: (response) => {

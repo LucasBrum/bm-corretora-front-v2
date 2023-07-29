@@ -1,3 +1,4 @@
+import { ChartModule } from 'primeng/chart';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardHomeComponent } from './page/dashboard-home/dashboard-home.component';
@@ -5,14 +6,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DASHBOARD_ROUTES } from './dashboard.routing';
 import { RouterModule } from '@angular/router';
 
+import { SharedModule } from 'src/app/shared/shared.module';
+
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
-import { ChartModule } from 'primeng/chart';
-import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -33,8 +35,9 @@ import { MessageService } from 'primeng/api';
     ToolbarModule,
     CardModule,
     ToastModule,
-    ChartModule
-
+    ChartModule,
+    //shared
+    SharedModule,
   ],
   providers: [CookieService, MessageService]
 })
