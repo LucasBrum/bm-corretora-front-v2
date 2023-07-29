@@ -1,1 +1,43 @@
-<p-toolbar></p-toolbar>
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+  <div class="logo-container">
+    <button class="logo" (click)="toggleCollapse()">
+      <i class="pi pi-bars"></i>
+    </button>
+    <div class="logo-text" *ngIf="collapsed">B&M Corretora</div>
+    <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
+      <i class="fal fa-times close-icon"></i>
+    </button>
+  </div>
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let data of navData">
+      <a class="sidenav-nav-link" [routerLink]="[data.routerLink]" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+      </a>
+    </li>
+    <p-button
+      icon="pi pi-sign-out"
+      (onClick)="handleLogout()"
+      styleClass="p-button-link"
+      routerLinkActive="exact_route"
+      class="mr-22">
+    </p-button>
+  </ul>
+
+
+
+
+</div>
+
+<div class="">
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" routerLink="/logout" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" class="pi pi-sign-out"></i>
+        <span class="sidenav-link-text" *ngIf="collapsed">Sair</span>
+      </a>
+    </li>
+  </ul>
+</div>
