@@ -5,25 +5,31 @@ import { GetAllProdutosResponse } from 'src/app/models/interfaces/produtos/respo
 import { ProdutosDataTransferService } from 'src/app/shared/services/produtos/produtos-data-transfer.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ChartData, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class DashboardHomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   public produtosList: Array<GetAllProdutosResponse> = [];
 
+  public produtosChartDatas!: ChartData;
+  public produtosChartOptions!: ChartOptions;
+
   constructor(
     private produtosService: ProdutosService,
     private messageService: MessageService,
-    private produtosDataTransferService: ProdutosDataTransferService){}
+    private produtosDataTransferService: ProdutosDataTransferService
+  ) {}
 
   ngOnInit(): void {
-      this.getAllProdutos();
+    this.getAllProdutos();
   }
+
   getAllProdutos(): void {
     this.produtosService
       .getAllProdutos()
@@ -33,23 +39,82 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
           if (response.length > 0) {
             this.produtosList = response;
             this.produtosDataTransferService.setProdutos(this.produtosList);
+            this.setProdutosChartConfig();
           }
-        }, error: (err) => {
+        },
+        error: (err) => {
           console.log(err);
           this.messageService.add({
             severity: 'error',
             summary: 'Erro',
             detail: 'Erro ao buscar Produtos!',
-            life: 2500
-          })
-        }
-      })
+            life: 2500,
+          });
+        },
+      });
+  }
+
+  setProdutosChartConfig() {
+    if (this.produtosList.length > 0) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue('--text-color');
+      const textColorSecondary = documentStyle.getPropertyValue(
+        '--text-color-secondary'
+      );
+      const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+      this.produtosChartDatas = {
+        labels: this.produtosList.map((element) => element?.tipo),
+        datasets: [
+          {
+            label: 'Valor prêmio Liquído',
+            backgroundColor: documentStyle.getPropertyValue('--indigo-400'),
+            borderColor: documentStyle.getPropertyValue('--indigo-400'),
+            hoverBackgroundColor:
+              documentStyle.getPropertyValue('--indigo-500'),
+            data: this.produtosList.map((element) => element?.valorPremioLiquido),
+          },
+        ],
+      };
+
+      this.produtosChartOptions = {
+        maintainAspectRatio: false,
+        aspectRatio: 0.8,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+
+        scales: {
+          x: {
+            ticks: {
+              color: textColor,
+              font: {
+                weight: '500',
+              },
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+          y: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+        },
+      };
+    }
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-
 }
