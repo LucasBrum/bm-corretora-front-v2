@@ -1,25 +1,29 @@
 import { CookieService } from 'ngx-cookie-service';
 import { SignupUserRequest } from './../../models/interfaces/user/SignupUserRequests';
 import { UserService } from './../../services/user/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthRequest } from 'src/app/models/interfaces/auth/AuthRequest';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy {
+  private destroy$ = new Subject<void>();
+
   loginCard = true;
   disableCheckbox = true;
 
   loginForm = this.formBuilder.group({
     email: ['', Validators.required],
-    senha: ['', Validators.required]
-  })
+    senha: ['', Validators.required],
+  });
 
   signupForm = this.formBuilder.group({
     nome: ['', Validators.required],
@@ -27,54 +31,56 @@ export class HomeComponent {
     telefone: ['', Validators.required],
     email: ['', Validators.required],
     senha: ['', Validators.required],
-    perfil: ['']
-  })
+    perfil: [''],
+  });
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private cookieService: CookieService,
     private messageService: MessageService,
-    private router: Router) {
-
-  }
+    private router: Router
+  ) {}
 
   onSubmitLoginForm() {
-    this.userService.authUser(this.loginForm.value as AuthRequest).subscribe(response => {
-      let authorization = response.headers.get('Authorization').substring(7);
+    this.userService
+      .authUser(this.loginForm.value as AuthRequest)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (response) => {
+          let authorization = response.headers
+            .get('Authorization')
+            .substring(7);
 
-      this.userService.successfullLogin(authorization)
-      this.cookieService.set('USER_INFO', authorization)
+          this.userService.successfullLogin(authorization);
+          this.cookieService.set('USER_INFO', authorization);
 
-      this.router.navigate(['/dashboard']) //navega para a página estabelecida no component nav após o login
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Sucesso',
-        detail: `Bem vindo!`,
-        life: 2000,
-      });
-
-      console.log('RESPONSE --->>> ', response);
-
-    },
-      (err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erro',
-          detail: 'Erro ao efetuar login!',
-          life: 2000,
-        });
-        console.log(err);
-      })
-
+          this.router.navigate(['/dashboard']); //navega para a página estabelecida no component nav após o login
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: `Bem vindo!`,
+            life: 2000,
+          });
+        },
+        (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Erro ao efetuar login!',
+            life: 2000,
+          });
+          console.log(err);
+        }
+      );
   }
-
-
 
   onSubmitSignupForm(): void {
     if (this.signupForm.value && this.signupForm.valid) {
-      console.log('signup >>>', this.signupForm.value)
-      this.userService.signupUser(this.signupForm.value as SignupUserRequest)
+      console.log('signup >>>', this.signupForm.value);
+      this.userService
+        .signupUser(this.signupForm.value as SignupUserRequest)
+        .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (response) => {
             if (response) {
@@ -97,9 +103,14 @@ export class HomeComponent {
               detail: `${err.error.message}`,
               life: 2000,
             });
-            console.log(err.error.message)
-          }
+            console.log(err.error.message);
+          },
         });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
