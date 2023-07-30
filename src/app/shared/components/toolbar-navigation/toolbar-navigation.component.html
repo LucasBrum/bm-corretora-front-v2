@@ -5,7 +5,7 @@
     </button>
     <div class="logo-text" *ngIf="collapsed">B&M Corretora</div>
     <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
-      <i class="fal fa-times close-icon"></i>
+      <i class="pi pi-times close-icon"></i>
     </button>
   </div>
   <ul class="sidenav-nav">
@@ -26,19 +26,4 @@
     </p-button>
   </ul>
 
-
-
-
-</div>
-
-<div class="">
-  <ul class="sidenav-nav">
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" routerLink="/logout" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="sidenav-link-icon" class="pi pi-sign-out"></i>
-        <span class="sidenav-link-text" *ngIf="collapsed">Sair</span>
-      </a>
-    </li>
-  </ul>
 </div>
