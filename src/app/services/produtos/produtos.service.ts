@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { GetAllProdutosResponse } from 'src/app/models/interfaces/produtos/response/GetAllProdutosResponse';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { GetQuantidadeProdutosPorTipo } from 'src/app/models/interfaces/produtos/response/GetQuantidadeProdutosPorTipo';
 
 
 @Injectable({
@@ -29,5 +30,11 @@ export class ProdutosService {
       this.httpOptions
     )
     .pipe(map((produto) => produto.filter((data) => data?.valorPremioLiquido > 0)));
+  }
+
+  getQuantidadeProdutosPorTipo(): Observable<Array<GetQuantidadeProdutosPorTipo>> {
+    return this.httpClient.get<Array<GetQuantidadeProdutosPorTipo>> (
+      `${this.API_URL}/produtos/tipo/quantidade`, this.httpOptions)
+
   }
 }

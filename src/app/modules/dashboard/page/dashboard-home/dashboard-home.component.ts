@@ -6,6 +6,7 @@ import { ProdutosDataTransferService } from 'src/app/shared/services/produtos/pr
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ChartData, ChartOptions } from 'chart.js';
+import { GetQuantidadeProdutosPorTipo } from 'src/app/models/interfaces/produtos/response/GetQuantidadeProdutosPorTipo';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -16,6 +17,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   public produtosList: Array<GetAllProdutosResponse> = [];
+  public quantidadeProdutosPorTipoList: Array<GetQuantidadeProdutosPorTipo> = [];
 
   public produtosChartDatas!: ChartData;
   public produtosChartOptions!: ChartOptions;
@@ -27,18 +29,18 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getAllProdutos();
+    this.getQuantidadeProdutosPorTipo();
   }
 
-  getAllProdutos(): void {
+  getQuantidadeProdutosPorTipo(): void {
     this.produtosService
-      .getAllProdutos()
+      .getQuantidadeProdutosPorTipo()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
           if (response.length > 0) {
-            this.produtosList = response;
-            this.produtosDataTransferService.setProdutos(this.produtosList);
+            this.quantidadeProdutosPorTipoList = response;
+            this.produtosDataTransferService.setQuantidadeProdutosPorTIpo(this.quantidadeProdutosPorTipoList);
             this.setProdutosChartConfig();
           }
         },
@@ -55,7 +57,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   }
 
   setProdutosChartConfig() {
-    if (this.produtosList.length > 0) {
+    if (this.quantidadeProdutosPorTipoList.length > 0) {
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue('--text-color');
       const textColorSecondary = documentStyle.getPropertyValue(
@@ -64,7 +66,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
       this.produtosChartDatas = {
-        labels: this.produtosList.map((element) => element?.tipo),
+        labels: this.quantidadeProdutosPorTipoList.map((element) => element?.tipo),
         datasets: [
           {
             label: 'Valor prêmio Liquído',
@@ -72,7 +74,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
             borderColor: documentStyle.getPropertyValue('--indigo-400'),
             hoverBackgroundColor:
               documentStyle.getPropertyValue('--indigo-500'),
-            data: this.produtosList.map((element) => element?.valorPremioLiquido),
+            data: this.quantidadeProdutosPorTipoList.map((element) => element?.quantidade),
           },
         ],
       };
