@@ -69,11 +69,33 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         labels: this.quantidadeProdutosPorTipoList.map((element) => element?.tipo),
         datasets: [
           {
-            label: 'Valor prêmio Liquído',
-            backgroundColor: documentStyle.getPropertyValue('--indigo-400'),
+            label: 'Quantidade de Produtos vendidos',
+            backgroundColor: [
+              documentStyle.getPropertyValue('--indigo-400'),
+              documentStyle.getPropertyValue('--green-400'),
+              documentStyle.getPropertyValue('--yellow-400'),
+              documentStyle.getPropertyValue('--cyan-400'),
+              documentStyle.getPropertyValue('--pink-400'),
+              documentStyle.getPropertyValue('--purple-400'),
+              documentStyle.getPropertyValue('--primary-400'),
+              documentStyle.getPropertyValue('--red-400'),
+              documentStyle.getPropertyValue('--gray-400'),
+
+
+            ],
             borderColor: documentStyle.getPropertyValue('--indigo-400'),
-            hoverBackgroundColor:
-              documentStyle.getPropertyValue('--indigo-500'),
+            hoverBackgroundColor:[
+              documentStyle.getPropertyValue('--indigo-600'),
+              documentStyle.getPropertyValue('--green-600'),
+              documentStyle.getPropertyValue('--yellow-600'),
+              documentStyle.getPropertyValue('--cyan-600'),
+              documentStyle.getPropertyValue('--pink-600'),
+              documentStyle.getPropertyValue('--purple-600'),
+              documentStyle.getPropertyValue('--primary-600'),
+              documentStyle.getPropertyValue('--red-600'),
+              documentStyle.getPropertyValue('--gray-600'),
+
+            ],
             data: this.quantidadeProdutosPorTipoList.map((element) => element?.quantidade),
           },
         ],

@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { PRODUCTS_ROUTE } from './products.routing';
-
-import { ProductsHomeComponent } from './page/products-home/products-home.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CardModule } from 'primeng/card';
@@ -22,10 +18,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
 
+import { SharedModule } from 'src/app/shared/shared.module';
+import { PRODUCTS_ROUTE } from './products.routing';
+import { ProductsHomeComponent } from './page/products-home/products-home.component';
+
 @NgModule({
-  declarations: [
-    ProductsHomeComponent
-  ],
+  declarations: [ProductsHomeComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -45,8 +43,8 @@ import { ConfirmationService } from 'primeng/api';
     DynamicDialogModule,
     DropdownModule,
     ConfirmDialogModule,
-    TooltipModule
+    TooltipModule,
   ],
-  providers: [DialogService, ConfirmationService]
+  providers: [DialogService, ConfirmationService],
 })
-export class ProductsModule { }
+export class ProductsModule {}
