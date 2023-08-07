@@ -11,7 +11,7 @@ export class ProdutosDataTransferService {
   public produtosDataEmitter$ = new BehaviorSubject<Array<GetAllProdutosResponse | null>>(null);
   public quantidadeProdutosPorTipoDataEmitter$ = new BehaviorSubject<Array<GetQuantidadeProdutosPorTipo | null>>(null);
 
-  public produtosList: Array<GetAllProdutosResponse> = [];
+  public productsDatas: Array<GetAllProdutosResponse> = [];
   public quantidadeProdutosPorTipoList: Array<GetQuantidadeProdutosPorTipo> = [];
 
   setProdutos(produtos: Array<GetAllProdutosResponse>): void {
@@ -37,12 +37,12 @@ export class ProdutosDataTransferService {
       ).subscribe({
         next: (response) => {
           if (response) {
-            this.produtosList = response;
+            this.productsDatas = response;
           }
         }
       });
 
-      return this.produtosList;
+      return this.productsDatas;
   }
 
   getQuantidadeProdutosPorTipoList() {

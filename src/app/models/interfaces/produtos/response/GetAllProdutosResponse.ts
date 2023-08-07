@@ -2,12 +2,12 @@ export interface GetAllProdutosResponse {
   id: string;
   tipo: string;
   seguradora: string;
-  coCorretagem: string;
-  dataVigencia: string;
+  coCorretagem: boolean;
+  dataVigencia: Date;
   valorPremioLiquido: number;
   comissaoVendaPorcentagem: number;
   valorComissaoReceber: number;
   agenciamentoPorcentagem: number;
-  idCliente: string;
+  idCliente: number;
   nomeCliente: string;
 }

@@ -37,7 +37,7 @@ export class ToolbarNavigationComponent {
   }
 
   handleLogout(): void {
-    console.log("callllllllll");
+    console.log("Efetuando Logout");
     this.cookieService.delete('USER_INFO');
     void this.router.navigate(['/home']);
   }
