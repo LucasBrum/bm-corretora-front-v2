@@ -1,8 +1,8 @@
 <div class="container">
   <div class="col-12">
-    <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Produtos">
+    <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Produtos vendidos">
 
-      <p-table #productsTable [value]="products" styleClass="p-datatable-striped p-datatable-sm" [rows]="10" [paginator]="true" [responsive]="true"
+      <p-table #productsTable [value]="products" styleClass="p-datatable-striped p-datatable-gridlines p-datatable-sm" [rows]="10" [paginator]="true" [responsive]="true"
         [globalFilterFields]="['name', 'amount']" [tableStyle]="{'min-width': '50rem'}" [(selection)]="productSelected"
         [rowHover]="true" [showCurrentPageReport]="true" dataKey="id"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos."
@@ -31,17 +31,17 @@
             </th>
 
             <th pSortableColumn="valorPremioLiquido" style="width:10%">
-                  Prêmio Líquido (R$)
+                  Prêmio Líq. (R$)
                   <p-sortIcon field="valorPremioLiquido"></p-sortIcon>
             </th>
 
             <th pSortableColumn="comissaoVendaPorcentagem" style="width:10%">
-                  Comissão Venda (%)
+                  Comissão (%)
                   <p-sortIcon field="comissaoVendaPorcentagem"></p-sortIcon>
             </th>
 
             <th pSortableColumn="valorComissaoReceber" style="width:10%">
-                  Comissão a Receber (R$)
+                  Comissão (R$)
                   <p-sortIcon field="valorComissaoReceber"></p-sortIcon>
             </th>
 
@@ -52,17 +52,11 @@
 
 
             <th pSortableColumn="nomeCliente" style="width:10%">
-              <div class="flex justify-content-between align-items-center">
-                <div class="flex justify-content-between align-items-center">
                   Cliente
-                </div>
-                <div class="flex justify-content-between align-items-center">
                   <p-sortIcon field="nomeCliente"></p-sortIcon>
                   <p-columnFilter type="text" field="nomeCliente" display="menu" matchMode="contains"
                     [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                   </p-columnFilter>
-                </div>
-              </div>
             </th>
 
             <th style="width:10%">Ações</th>
@@ -83,10 +77,10 @@
             <td>{{ product?.agenciamentoPorcentagem }}</td>
             <td>{{ product?.nomeCliente }}</td>
             <td>
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text"
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text" styleClass="p-button-sm"
                 pTooltip="Editar Produto" tooltipPosition="top">
               </button>
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"
+              <button pButton pRipple icon="pi pi-trash" class="button-delete p-button-rounded p-button-danger p-button-text"
                 pTooltip="Remover Produto" tooltipPosition="top" >
               </button>
             </td>
