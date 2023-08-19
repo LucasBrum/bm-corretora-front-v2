@@ -2,7 +2,7 @@
   <div class="col-12">
     <p-card styleClass="shadow-3 m-2 text-indigo-700" header="Produtos Vendidos">
 
-      <p-button icon="pi pi-plus" label="Adicionar Produto" styleClass="p-button-outlined m-3"></p-button>
+      <p-button icon="pi pi-plus" label="Adicionar Produto" styleClass="p-button-outlined m-3" (onClick)="handleProductEvent(addProductEvent)"></p-button>
 
       <p-table #productsTable [value]="products" styleClass="p-datatable-striped p-datatable-gridlines p-datatable-sm" [rows]="10" [paginator]="true" [responsive]="true"
         [globalFilterFields]="['name', 'amount']" [tableStyle]="{'min-width': '50rem'}" [(selection)]="productSelected"
@@ -79,10 +79,10 @@
             <td>{{ product?.nomeCliente }}</td>
             <td>
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text" styleClass="p-button-sm"
-                pTooltip="Editar Produto" tooltipPosition="top" (click)="handleProductEvent(addProductEvent)">
+                pTooltip="Editar Produto" tooltipPosition="top" (click)="handleProductEvent(editProductEvent, product?.id)">
               </button>
               <button pButton pRipple icon="pi pi-trash" class="button-delete p-button-rounded p-button-danger p-button-text"
-                pTooltip="Remover Produto" tooltipPosition="top" (click)="handleProductEvent(editProductEvent, product?.id)">
+                pTooltip="Remover Produto" tooltipPosition="top">
               </button>
             </td>
           </tr>
