@@ -176,5 +176,10 @@
   margin: auto;
 }
 
+:host ::ng-deep .p-icon {
+  width: 0.8rem;
+  height: 1rem;
+}
+
 
 

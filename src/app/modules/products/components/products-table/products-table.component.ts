@@ -6,7 +6,7 @@ import { GetAllProdutosResponse } from 'src/app/models/interfaces/produtos/respo
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
-  styleUrls: ['./products-table.component.scss']
+  styleUrls: ['./products-table.component.scss', '../../../../../styles.scss']
 })
 export class ProductsTableComponent {
 
