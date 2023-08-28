@@ -7,8 +7,8 @@
       <p-table #productsTable [value]="products" styleClass="p-datatable-striped p-datatable-gridlines p-datatable-sm" [rows]="10" [paginator]="true" [responsive]="true"
         [globalFilterFields]="['name', 'amount']" [tableStyle]="{'min-width': '50rem'}" [(selection)]="productSelected"
         [rowHover]="true" [showCurrentPageReport]="true" dataKey="id"
-        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos."
-        [showCurrentPageReport]="true">
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos.">
 
       <ng-template pTemplate="header">
           <tr>
