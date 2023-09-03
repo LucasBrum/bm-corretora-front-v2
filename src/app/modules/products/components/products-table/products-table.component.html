@@ -82,7 +82,7 @@
                 pTooltip="Editar Produto" tooltipPosition="top" (click)="handleProductEvent(editProductEvent, product?.id)">
               </button>
               <button pButton pRipple icon="pi pi-trash" class="button-delete p-button-rounded p-button-danger p-button-text"
-                pTooltip="Remover Produto" tooltipPosition="top">
+                pTooltip="Remover Produto" tooltipPosition="top" (click)="handleDeleteProduct(product?.id, product?.tipo)">
               </button>
             </td>
           </tr>
