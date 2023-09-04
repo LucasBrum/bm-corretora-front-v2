@@ -6,6 +6,7 @@ import { GetAllProdutosResponse } from 'src/app/models/interfaces/produtos/respo
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GetQuantidadeProdutosPorTipo } from 'src/app/models/interfaces/produtos/response/GetQuantidadeProdutosPorTipo';
+import { DeleteProductResponse } from 'src/app/models/interfaces/produtos/response/DeleteProductResponse';
 
 
 @Injectable({
@@ -36,5 +37,12 @@ export class ProdutosService {
     return this.httpClient.get<Array<GetQuantidadeProdutosPorTipo>> (
       `${this.API_URL}/produtos/tipo/quantidade`, this.httpOptions)
 
+  }
+
+  deleteProduct(product_id: string): Observable<DeleteProductResponse> {
+    return this.httpClient.delete<DeleteProductResponse> (
+      `${this.API_URL}/produtos/${product_id}`,
+       this.httpOptions
+    )
   }
 }
