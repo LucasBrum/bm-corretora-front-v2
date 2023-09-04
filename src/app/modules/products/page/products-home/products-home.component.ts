@@ -26,12 +26,12 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private confirmationService: ConfirmationService
 
-  ) {}
+  ) { }
 
 
-    ngOnInit(): void {
-        this.getServiceProductsDatas();
-    }
+  ngOnInit(): void {
+    this.getServiceProductsDatas();
+  }
 
   getServiceProductsDatas() {
     const productsLoaded = this.produtosDataService.getProdutosList();
@@ -77,18 +77,18 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
   handleDeleteProductAction(event: {
     product_id: string;
     productType: string;
-    }): void {
-      if (event) {
-        console.log("DADOS RECEBIDOS DO EVENTO DE DELETAR PRODUTO: ", event)
-        this.confirmationService.confirm({
-          message: `Confirma a exclusão do produto: ${event?.productType}?`,
-          header: 'Confirmação de exclusão',
-          icon: 'pi pi-exclamation-triangle',
-          acceptLabel: 'Sim',
-          rejectLabel: 'Não',
-          accept: () => this.deleteProduct(event?.product_id),
-        });
-      }
+  }): void {
+    if (event) {
+      console.log("DADOS RECEBIDOS DO EVENTO DE DELETAR PRODUTO: ", event)
+      this.confirmationService.confirm({
+        message: `Confirma a exclusão do produto: ${event?.productType}?`,
+        header: 'Confirmação de exclusão',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Sim',
+        rejectLabel: 'Não',
+        accept: () => this.deleteProduct(event?.product_id),
+      });
+    }
   }
 
   deleteProduct(product_id: string) {
@@ -97,25 +97,25 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (response) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso',
-            detail: 'Produto removido com sucesso!',
-            life: 2500,
-          });
-          console.log(response);
-          this.getAPIProductsDatas();
-        },error: (err) => {
-          console.log(err);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erro',
-            detail: 'Erro ao remover produto!',
-            life: 2500
-          })
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Produto removido com sucesso!',
+              life: 2500,
+            });
+            console.log(response);
+            this.getAPIProductsDatas();
+          }, error: (err) => {
+            console.log(err);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Erro ao remover produto!',
+              life: 2500
+            })
 
 
-        }
+          }
         });
     }
   }
